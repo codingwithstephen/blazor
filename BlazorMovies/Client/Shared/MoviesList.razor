@@ -1,0 +1,48 @@
+﻿@using System.Threading
+@inject IJSRuntime js
+<input type="checkbox" @bind="displayButtons" />
+
+<GenericList List="Movies">
+    <ElementTemplate Context="movie">
+        <IndividualMovie Movie="movie" DisplayButtons="displayButtons" DeleteMovie="DeleteMovie" />
+    </ElementTemplate>
+</GenericList>
+
+@code {
+
+    [Parameter] public List<Movie> Movies { get; set; }
+
+    bool displayButtons = true;
+
+    private async void DeleteMovie(Movie movie)
+    {
+        await js.MyFunction("this is my message");
+        var confirmed = await js.Confirm("Are you sure?");
+
+        if (confirmed)
+        {
+            Movies.Remove(movie);
+        }
+
+    }
+
+    protected override void OnInitialized()
+    {
+        Console.WriteLine("OnInitialized. Movies.Count = " + Movies?.Count.ToString());
+    }
+
+    protected override void OnParametersSet()
+    {
+        Console.WriteLine("OnParametersSet. Movies.Count = " + Movies?.Count.ToString());
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        Console.WriteLine("OnAfterRender. FirstRender = " + firstRender.ToString());
+    }
+
+    protected override bool ShouldRender()
+    {
+        return true;
+    }
+}

@@ -1,0 +1,36 @@
+﻿@page "/counter"
+
+
+<h1 style="color:@AppState.Color; font-size: @AppState.Size">Counter</h1>
+
+<div style="display:flex">
+    <div style="width:150px">
+        <select @bind="AppState.Color" class="form-control" style="margin-top:15px">
+            <option value="green">Green</option>
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+        </select>
+    </div>
+    <div style="width:150px">
+        <select @bind="AppState.Size" class="form-control" style="margin-top:15px">
+            <option value="12px">12 pixels</option>
+            <option value="20px">20 pixels</option>
+            <option value="30px">30 pixels</option>
+        </select>
+    </div>
+</div>
+
+<p>Current count: @currentCount</p>
+<p>Singleton count: @singleton.Value</p>
+<p>Transient count: @transient.Value</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<button class="btn btn-primary" @onclick="IncrementCount">Click me javascript</button>
+
+<input type="number" @bind="currentCount" />
+
+<MoviesList Movies="movies" />
+
+@code {
+
+}
